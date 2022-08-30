@@ -16,8 +16,78 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-markdown data-separator-vertical="^\r?\n--\r?\n$">
+					<textarea data-template>
+## Requirements (1min)
+- experience with git & github
+- docker-compatible OS (macOS, Linux, Windows)
+note:
+whatever
+
+some text
+
+---
+
+## Motivation(4min)
+
+--
+
+### why CI testing?
+- prevent broken projects, especially problematic if many devs/users
+- ensure setup works on fresh machine
+- code quality standard
+
+--
+
+### why GitHub Actions (GHA)?
+- github is default version control hosting
+- if on github: GHA feature easy setup, free (is it really? -> check github pricing)
+
+--
+
+### why debug GHA?
+- GHA = code, code breaks -> debugging required
+
+--
+
+### why is debugging GHA hard?
+- GHA runs on github server in a docker container -> non-interactive
+- trial & error? upload tons of commits + print debugging?
+- nope: nektos/act
+
+---
+
+## Setup repo + GHA (8min)
+- devtools::check() an R package (Python/Bash stuff better?)
+- create .github/workflows/action.yaml (use pre-existing GHA?)
+- introduce bug for debugging
+- push to github, follow GHA running in browser
+
+---
+
+## Setup nektos/act (4min)
+- show how to install docker
+- install act
+- pull fitting docker image
+- configure act (to use that image)
+
+---
+
+## Debug GHA locally (14min)
+- run GHA via act, fails
+- open bash in docker container
+- debug, fix bug
+- run GHA via act, succeeds
+
+---
+
+## Wrap-up (4min)
+- upload to github
+- start GHA
+- recap
+- GHA succeeds
+					</textarea>
+				</section>
 			</div>
 		</div>
 
