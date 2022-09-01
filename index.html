@@ -18,74 +18,114 @@
 			<div class="slides">
 				<section data-markdown data-separator-vertical="^\r?\n--\r?\n$">
 					<textarea data-template>
-## Requirements (1min)
-- experience with git & github
-- docker-compatible OS (macOS, Linux, Windows)
-note:
-whatever
+## Debugging GitHub Actions locally
+notes:
+- let's assume you have a repo with a GHA: checks/tests on each push
+- was running fine, but something happened
+- GHA breaks, cannot reproduce error locally
+- you code a potential fix in the dark (locally everything works), push and wait...
+- 20 min later, GHA failed, you try again...
+- then you run out of ideas and start putting `print` statements everywhere, push again...
+- at the end of your workday your commit history shows 20 commits each with a red GHA-failed cross
+- you are reminded of the time when you were learning to program, nothing seemed to work and it was frustrating as hell
+- and the worst thing: you still have no idea what's going wrong
+- luckily, there's a better way, and we'll take a look at that now
 
-some text
+https://rsecon2022.society-rse.org/walkthroughs/
+30 min presentation, 15 min questions
 
+--
+
+### Requirements
+- git
+- commandline debugging
+- optional: CI testing
+notes: 1min
+
+--
+
+### Learning objectives
+- setup, run, and debug GitHub Action locally
+notes: 1min
 ---
 
-## Motivation(4min)
+## Motivation
 
 --
 
 ### why CI testing?
+- run checks/tests on PR/push
 - prevent broken projects, especially problematic if many devs/users
 - ensure setup works on fresh machine
 - code quality standard
 
 --
 
-### why GitHub Actions (GHA)?
-- github is default version control hosting
-- if on github: GHA feature easy setup, free (is it really? -> check github pricing)
+### why GitHub Actions?
+- Actions are easy to setup & free
+- Actions = code -> will break eventually
+notes:
+shoutout to GitHub, amazing service for free!
+
+...and then, what do we do? debugging! unfortunately tricky
 
 --
 
-### why debug GHA?
-- GHA = code, code breaks -> debugging required
-
---
-
-### why is debugging GHA hard?
-- GHA runs on github server in a docker container -> non-interactive
+### why is debugging Actions tricky?
+- Action runs on a GitHub server -> non-interactive
 - trial & error? upload tons of commits + print debugging?
 - nope: nektos/act
 
 ---
 
-## Setup repo + GHA (8min)
-- devtools::check() an R package (Python/Bash stuff better?)
-- create .github/workflows/action.yaml (use pre-existing GHA?)
-- introduce bug for debugging
-- push to github, follow GHA running in browser
+## Setup repo
+- create repo including Action
+- follow Action running in browser
+notes: do it all in-browser in an iframe in the presentation?!
+
+--
+
+## Setup nektos/act
+- install [docker](https://www.docker.com/)
+- download image `docker pull ghcr.io/catthehacker/ubuntu:full-latest`
+- install [act](https://github.com/nektos/act#installation)
+notes:
+iframe go to download sites
+
+when Action runs on GitHub server, runs in sandbox/virtual system with e.g. basic ubuntu
+
+want to reproduce locally -> need same system -> docker image
+
+use to create container: virtual system, can have different tools/OS running there
 
 ---
 
-## Setup nektos/act (4min)
-- show how to install docker
-- install act
-- pull fitting docker image
-- configure act (to use that image)
+## Debug Action locally
+- run Action locally `act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:full-latest`
+- list running containers `docker ps`
+- open bash in container `docker exec -it <container-name-or-id> bash`
+- commandline debugging
 
 ---
 
-## Debug GHA locally (14min)
-- run GHA via act, fails
-- open bash in docker container
-- debug, fix bug
-- run GHA via act, succeeds
+## Wrap-up
+- CI testing with GitHub Actions is great
+- trial & error debugging is terrible
+- recreated server environment locally
+- ran Action locally
+- solved problem with proper debugging tools
+- also helpful for developing new Action!
+
+notes:
+- push fix to GitHub
+- iframe running Action
 
 ---
 
-## Wrap-up (4min)
-- upload to github
-- start GHA
-- recap
-- GHA succeeds
+## time for questions
+- [GitHub: pfuehrlich-pik](https://github.com/pfuehrlich-pik)
+- [mail: pascal.fuehrlich@pik-potsdam.de](mailto:pascal.fuehrlich@pik-potsdam.de)
+
 					</textarea>
 				</section>
 			</div>
