@@ -38,6 +38,7 @@ https://rsecon2022.society-rse.org/walkthroughs/
 
 ### Requirements
 - git
+- GitHub
 - commandline debugging
 - optional: CI testing
 notes: 1min
@@ -63,18 +64,18 @@ notes: 1min
 
 ### why GitHub Actions?
 - Actions are easy to setup & free
-- Actions = code -> will break eventually
+- Actions = code -> will break eventually, and then?
+- debugging! <!-- .element: class="fragment" data-fragment-index="2" -->
+- is quite tricky here :( <!-- .element: class="fragment" data-fragment-index="3" -->
 notes:
 shoutout to GitHub, amazing service for free!
-
-...and then, what do we do? debugging! unfortunately tricky
 
 --
 
 ### why is debugging Actions tricky?
 - Action runs on a GitHub server -> non-interactive
 - trial & error? upload tons of commits + print debugging?
-- nope: nektos/act
+- nope: nektos/act <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ---
 
@@ -87,10 +88,15 @@ notes: do it all in-browser in an iframe in the presentation?!
 
 ## Setup nektos/act
 - install [docker](https://www.docker.com/)
-- download image `docker pull ghcr.io/catthehacker/ubuntu:full-latest`
 - install [act](https://github.com/nektos/act#installation)
+- optional: download image (18GB)
+
+```sh
+$ docker pull ghcr.io/catthehacker/ubuntu:full-latest
+```
+
 notes:
-iframe go to download sites
+- iframe go to download sites
 
 when Action runs on GitHub server, runs in sandbox/virtual system with e.g. basic ubuntu
 
@@ -101,20 +107,28 @@ use to create container: virtual system, can have different tools/OS running the
 ---
 
 ## Debug Action locally
-- run Action locally `act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:full-latest`
-- list running containers `docker ps`
-- open bash in container `docker exec -it <container-name-or-id> bash`
-- commandline debugging
+```sh
+# run Action locally
+$ act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:full-latest
+
+# list running containers
+$ docker ps
+
+# open bash in container
+$ docker exec -it <container-name-or-id> bash
+
+# commandline debugging
+```
 
 ---
 
 ## Wrap-up
 - CI testing with GitHub Actions is great
 - trial & error debugging is terrible
-- recreated server environment locally
-- ran Action locally
-- solved problem with proper debugging tools
-- also helpful for developing new Action!
+- recreated server environment locally <!-- .element: class="fragment" data-fragment-index="2" -->
+- ran Action locally <!-- .element: class="fragment" data-fragment-index="2" -->
+- solved problem with proper debugging tools  <!-- .element: class="fragment" data-fragment-index="2" -->
+- also helpful for developing new Action!  <!-- .element: class="fragment" data-fragment-index="3" -->
 
 notes:
 - push fix to GitHub
