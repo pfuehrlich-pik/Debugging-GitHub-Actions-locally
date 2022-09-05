@@ -41,13 +41,12 @@ https://rsecon2022.society-rse.org/walkthroughs/
 - GitHub
 - commandline debugging
 - optional: CI testing
-notes: 1min
 
 --
 
 ### Learning objectives
 - setup, run, and debug GitHub Action locally
-notes: 1min
+
 ---
 
 ## Motivation
@@ -80,15 +79,18 @@ shoutout to GitHub, amazing service for free!
 ---
 
 ## Setup repo
-- create repo including Action
+- create [repo including Action](https://github.com/pfuehrlich-pik/GitHub-Action-Example)
 - follow Action running in browser
+
+notes:
+let's reproduce this locally
 
 --
 
 ## Setup nektos/act
 - install [docker](https://www.docker.com/)
 - install [act](https://github.com/nektos/act#installation)
-- optional: download image (18GB)
+- optional: download [GitHub Actions docker image](https://github.com/nektos/act#runners) (18GB)
 
 ```sh
 $ docker pull ghcr.io/catthehacker/ubuntu:full-latest
