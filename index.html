@@ -19,6 +19,10 @@
 				<section data-markdown data-separator-vertical="^\r?\n--\r?\n$">
 					<textarea data-template>
 ## Debugging GitHub Actions locally
+<img src=logo.png></img>
+
+Pascal Führlich
+
 notes:
 - let's assume you have a repo with a GHA: checks/tests on each push
 - was running fine, but something happened
@@ -74,7 +78,7 @@ shoutout to GitHub, amazing service for free!
 ### why is debugging Actions tricky?
 - Action runs on a GitHub server -> non-interactive
 - trial & error? upload tons of commits + print debugging?
-- nope: nektos/act <!-- .element: class="fragment" data-fragment-index="2" -->
+- instead use nektos/act <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ---
 
@@ -83,14 +87,15 @@ shoutout to GitHub, amazing service for free!
 - follow Action running in browser
 
 notes:
-let's reproduce this locally
+- github action failed on GitHub
+- ok, let's fix this locally... -> cannot reproduce!
 
 --
 
 ## Setup nektos/act
 - install [docker](https://www.docker.com/)
 - install [act](https://github.com/nektos/act#installation)
-- optional: download [GitHub Actions docker image](https://github.com/nektos/act#runners) (18GB)
+- optional: download [GitHub Actions docker image](https://github.com/nektos/act#runners)
 
 ```sh
 $ docker pull ghcr.io/catthehacker/ubuntu:full-latest
@@ -132,8 +137,9 @@ notes:
 - trial & error debugging is terrible
 - recreated server environment locally <!-- .element: class="fragment" data-fragment-index="2" -->
 - ran Action locally <!-- .element: class="fragment" data-fragment-index="2" -->
-- solved problem with proper debugging tools  <!-- .element: class="fragment" data-fragment-index="2" -->
-- also helpful for developing new Action!  <!-- .element: class="fragment" data-fragment-index="3" -->
+- solved problem interactively <!-- .element: class="fragment" data-fragment-index="3" -->
+- much faster feedback loop  <!-- .element: class="fragment" data-fragment-index="3" -->
+- also helpful for developing new Action!  <!-- .element: class="fragment" data-fragment-index="4" -->
 
 notes:
 - switch back to succeeded Action
@@ -142,8 +148,11 @@ notes:
 ---
 
 ## time for questions
-- [GitHub: pfuehrlich-pik](https://github.com/pfuehrlich-pik)
-- [mail: pascal.fuehrlich@pik-potsdam.de](mailto:pascal.fuehrlich@pik-potsdam.de)
+[pfuehrlich-pik.github.io/<br>Debugging-GitHub-Actions-locally](https://pfuehrlich-pik.github.io/Debugging-GitHub-Actions-locally/)
+
+[GitHub: pfuehrlich-pik](https://github.com/pfuehrlich-pik)
+
+[mail: pascal.fuehrlich@pik-potsdam.de](mailto:pascal.fuehrlich@pik-potsdam.de)
 
 					</textarea>
 				</section>
