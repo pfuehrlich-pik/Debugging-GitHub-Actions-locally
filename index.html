@@ -19,37 +19,51 @@
 				<section data-markdown data-separator-vertical="^\r?\n--\r?\n$">
 					<textarea data-template>
 ## Debugging GitHub Actions locally
-<img src=logo.png></img>
 
 Pascal Führlich
 
-notes:
-- let's assume you have a repo with a GHA: checks/tests on each push
-- was running fine, but something happened
-- GHA breaks, cannot reproduce error locally
-- you code a potential fix in the dark (locally everything works), push and wait...
-- 20 min later, GHA failed, you try again...
-- then you run out of ideas and start putting `print` statements everywhere, push again...
-- at the end of your workday your commit history shows 20 commits each with a red GHA-failed cross
-- you are reminded of the time when you were learning to program, nothing seemed to work and it was frustrating as hell
-- and the worst thing: you still have no idea what's going wrong
-- luckily, there's a better way, and we'll take a look at that now
+<img src=logo.png></img>
 
+notes:
 https://rsecon2022.society-rse.org/walkthroughs/
 30 min presentation, 15 min questions
 
 --
 
-### Requirements
-- git
-- GitHub
-- commandline debugging
-- optional: CI testing
+### storytime
+- repo on GitHub with CI
+- CI = continuous integration <!-- .element: class="fragment" data-fragment-index="2" -->
+- CI ~ checks run on server on each push <!-- .element: class="fragment" data-fragment-index="3" -->
+- CI checks fail, locally checks succeed <!-- .element: class="fragment" data-fragment-index="4" -->
+- workflow  <!-- .element: class="fragment" data-fragment-index="5" -->
+```python
+while CI fails:
+	come up with idea
+	implement potential fix
+	push to GitHub
+	wait 20 minutes
+```
+
+notes:
+- then you run out of ideas and start putting `print` statements everywhere, push again...
+- this trial & error approach reminds you of the time when you just started learning to program
+- nothing seemed to work and it was frustrating as hell
 
 --
 
-### Learning objectives
-- setup, run, and debug GitHub Action locally
+<img src=fail_history.png height="600"></img>
+
+notes:
+- at the end of your workday your history on GitHub shows 20 commits each with a red "failed" cross
+- and the worst thing: you still have no idea what's going wrong
+- luckily, there's a better way, and we'll take a look at that now
+
+--
+
+### Requirements
+- Windows, Mac, Linux
+- git
+- repo on GitHub
 
 ---
 
@@ -78,48 +92,55 @@ shoutout to GitHub, amazing service for free!
 ### why is debugging Actions tricky?
 - Action runs on a GitHub server -> non-interactive
 - trial & error? upload tons of commits + print debugging?
-- instead use nektos/act <!-- .element: class="fragment" data-fragment-index="2" -->
+- instead use act by Casey Lee <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ---
 
 ## Setup repo
-- create [repo including Action](https://github.com/pfuehrlich-pik/GitHub-Action-Example)
+- create [repo](https://github.com/pfuehrlich-pik/GitHub-Action-Example)
+- add GitHub Action
 - follow Action running in browser
 
 notes:
+- using R, but works with any language
 - github action failed on GitHub
 - ok, let's fix this locally... -> cannot reproduce!
 
 --
 
-## Setup nektos/act
+## Setup act
 - install [docker](https://www.docker.com/)
 - install [act](https://github.com/nektos/act#installation)
 - optional: download [GitHub Actions docker image](https://github.com/nektos/act#runners)
 
 ```sh
-$ docker pull ghcr.io/catthehacker/ubuntu:full-latest
+docker pull ghcr.io/catthehacker/ubuntu:full-latest
 ```
 
 notes:
-- when Action runs on GitHub server, runs in sandbox/virtual system with e.g. basic ubuntu
+- when Action runs on GitHub server, runs in sandbox/virtual ubuntu system
 - want to reproduce locally -> need same system -> docker image
 - use to create container: virtual system, can have different tools/OS running there
 
 ---
 
 ## Debug Action locally
+### run Action locally
 ```sh
-# run Action locally
-$ act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:full-latest
+act -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:full-latest
+```
 
-# list running containers
-$ docker ps
+1. creates docker container <!-- .element: class="fragment" data-fragment-index="2" -->
+1. copies local files from the git repo into container <!-- .element: class="fragment" data-fragment-index="3" -->
+1. runs Actions <!-- .element: class="fragment" data-fragment-index="4" -->
 
-# open bash in container
-$ docker exec -it <container-name-or-id> bash
+--
 
-# commandline debugging
+### open bash in container
+
+```sh
+docker ps # show running containers
+docker exec -it {container-name-or-id} bash
 ```
 
 notes:
@@ -133,26 +154,29 @@ notes:
 ---
 
 ## Wrap-up
-- CI testing with GitHub Actions is great
-- trial & error debugging is terrible
+- GitHub Actions are great, trial & error debugging is terrible
 - recreated server environment locally <!-- .element: class="fragment" data-fragment-index="2" -->
 - ran Action locally <!-- .element: class="fragment" data-fragment-index="2" -->
 - solved problem interactively <!-- .element: class="fragment" data-fragment-index="3" -->
-- much faster feedback loop  <!-- .element: class="fragment" data-fragment-index="3" -->
+- much faster feedback loop <!-- .element: class="fragment" data-fragment-index="3" -->
 - also helpful for developing new Action!  <!-- .element: class="fragment" data-fragment-index="4" -->
 
 notes:
 - switch back to succeeded Action
 - then next slide
 
----
+--
 
-## time for questions
-[pfuehrlich-pik.github.io/<br>Debugging-GitHub-Actions-locally](https://pfuehrlich-pik.github.io/Debugging-GitHub-Actions-locally/)
+## final slide
+[pascal.fuehrlich@pik-potsdam.de](mailto:pascal.fuehrlich@pik-potsdam.de)
 
-[GitHub: pfuehrlich-pik](https://github.com/pfuehrlich-pik)
+[github.com/pfuehrlich-pik](https://github.com/pfuehrlich-pik)
 
-[mail: pascal.fuehrlich@pik-potsdam.de](mailto:pascal.fuehrlich@pik-potsdam.de)
+[pfuehrlich-pik.github.io/Debugging-GitHub-Actions-locally](https://pfuehrlich-pik.github.io/Debugging-GitHub-Actions-locally/)<!-- .element: style="font-size: 36px;" -->
+
+[presentation created with reveal.js by Hakim El Hattab](https://revealjs.com/)
+
+[like act? sponsor Casey Lee](https://github.com/sponsors/cplee)
 
 					</textarea>
 				</section>
